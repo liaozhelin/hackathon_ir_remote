@@ -26,7 +26,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+#include "IR_code.h"
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -55,7 +55,7 @@ static void MX_TIM21_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_TIM22_Init(void);
 /* USER CODE BEGIN PFP */
-void InfraredSend(void);
+void InfraredSend(uint8_t BitValue_IN[],uint16_t KeepTime_IN[],uint32_t SampleCount_IN);
 void HAL_Delay_Us(uint32_t Delay_us) ;
 /* USER CODE END PFP */
 
@@ -64,8 +64,8 @@ void HAL_Delay_Us(uint32_t Delay_us) ;
 uint8_t send = 0;
 
 uint8_t gu8BitVal = 0;
-uint32_t KeepTime[1000] = {0};
-uint8_t BitValue[1000] = {0};
+uint16_t KeepTime[400] = {0};
+uint8_t BitValue[400] = {0};
 uint32_t SampleCount = 0;
 uint32_t NowTimCnt = 0;
 enum State {NONE_STATE=0,RECV_STATE,END_STATE} state;
@@ -79,7 +79,6 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -117,7 +116,14 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		InfraredSend();
+		InfraredSend(BitValue_Hisense_ON,KeepTime_Hisense_ON,SampleCount_Hisense_ON);
+		HAL_Delay(10000);
+		InfraredSend(BitValue_Hisense_OFF,KeepTime_Hisense_OFF,SampleCount_Hisense_OFF);
+		HAL_Delay(10000);
+		InfraredSend(BitValue_Haier_ON,KeepTime_Haier_ON,SampleCount_Haier_ON);
+		HAL_Delay(10000);
+		InfraredSend(BitValue_Haier_OFF,KeepTime_Haier_OFF,SampleCount_Haier_OFF);
+		
   }
   /* USER CODE END 3 */
 }
@@ -389,29 +395,29 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     }
 }
 
-void InfraredSend(void){
-	if(send == 1){
+void InfraredSend(uint8_t BitValue_IN[],uint16_t KeepTime_IN[],uint32_t SampleCount_IN){
+//	if(send == 1){
 		uint16_t Count = 0;
     
-    while(Count < SampleCount )
+    while(Count < SampleCount_IN )
     {
-        if(BitValue[Count] == 0)
+        if(BitValue_IN[Count] == 0)
         {
             TIM2->CCR1 = 420;//??38KHz,????50%?PWM?
-            HAL_Delay_Us(KeepTime[Count]);
+            HAL_Delay_Us(KeepTime_IN[Count]);
             TIM2->CCR1 = 0;
         }
         else
         {
             TIM2->CCR1 = 0;
-            HAL_Delay_Us(KeepTime[Count]);
+            HAL_Delay_Us(KeepTime_IN[Count]);
             TIM2->CCR1 = 0;
         }
 
         Count ++;
     }
-		send = 0;
-	}
+//		send = 0;
+//	}
 }
 /* USER CODE END 4 */
 

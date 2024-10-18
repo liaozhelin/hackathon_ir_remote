@@ -31,3 +31,4 @@ ir-controller\main.o: ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_pwr_ex.h
 ir-controller\main.o: ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim.h
 ir-controller\main.o: ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h
 ir-controller\main.o: C:\Program Files\Keil_v5\keil_mdk\ARM\ARMCC\Bin\..\include\math.h
+ir-controller\main.o: ..\MDK-ARM\IR_code.h
