@@ -1,0 +1,26 @@
+--cpu Cortex-M0+
+"ir-controller\startup_stm32l031xx.o"
+"ir-controller\main.o"
+"ir-controller\stm32l0xx_it.o"
+"ir-controller\stm32l0xx_hal_msp.o"
+"ir-controller\stm32l0xx_hal_tim.o"
+"ir-controller\stm32l0xx_hal_tim_ex.o"
+"ir-controller\stm32l0xx_hal.o"
+"ir-controller\stm32l0xx_hal_i2c.o"
+"ir-controller\stm32l0xx_hal_i2c_ex.o"
+"ir-controller\stm32l0xx_hal_rcc.o"
+"ir-controller\stm32l0xx_hal_rcc_ex.o"
+"ir-controller\stm32l0xx_hal_flash_ramfunc.o"
+"ir-controller\stm32l0xx_hal_flash.o"
+"ir-controller\stm32l0xx_hal_flash_ex.o"
+"ir-controller\stm32l0xx_hal_gpio.o"
+"ir-controller\stm32l0xx_hal_dma.o"
+"ir-controller\stm32l0xx_hal_pwr.o"
+"ir-controller\stm32l0xx_hal_pwr_ex.o"
+"ir-controller\stm32l0xx_hal_cortex.o"
+"ir-controller\stm32l0xx_hal_exti.o"
+"ir-controller\system_stm32l0xx.o"
+--strict --scatter "IR-Controller\IR-Controller.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "IR-Controller.map" -o IR-Controller\IR-Controller.axf
